@@ -1,4 +1,4 @@
-<h1 align="center">Building GitHub integrations with Webhooks and REST</h1>
+<h1 align="center">Building GitHub integrations with webhooks and REST</h1>
 <h5 align="center">@bswinnerton, @janester, and @nronas</h3>
 
 <p align="center">
