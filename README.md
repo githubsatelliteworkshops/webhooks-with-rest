@@ -11,7 +11,6 @@ Webhooks are valuable tools for powering real-time integrations and workflows in
 
 ## :mega: Prerequisites
 - A GitHub account
-- A personal access token
 - A working installation of Docker
 - Some familiarity with coding (preferrably in ruby)
 - Some familiarity with git
