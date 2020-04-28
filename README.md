@@ -29,9 +29,7 @@ Webhooks are valuable tools for powering real-time integrations and workflows in
 
 Once you have all of the above prerequisites installed, please fork this repo:
 
-```
-$ git clone git@github.com:github/satelite-2020-webhooks.git
-```
+**TODO: REPLACE WITH SCREENSHOTS ON HOW TO PERFORM A FORK**
 
 and then build the docker image that will bootstrap the app components and it's dependencies
 
