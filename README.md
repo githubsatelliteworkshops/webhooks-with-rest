@@ -1,5 +1,6 @@
 <h1 align="center">Building GitHub integrations with webhooks and REST</h1>
-<h5 align="center">@bswinnerton, @janester, and @nronas</h3>
+<h5 align="center">Facilitators: @bswinnerton, @janester, and @nronas</h3>
+<h5 align="center">Chat Moderators: @gwestersf, @jovel, and @jpemberthy</h3>
 
 <p align="center">
   <a href="#mega-prerequisites">Prerequisites</a> •  
