@@ -1,0 +1,9 @@
+#!/bin/sh
+# Usage: script/console
+# Starts a development rails console inside a docker container.
+
+# Set the RAILS_ENV if not currently set
+: ${RAILS_ENV:=development}
+export RAILS_ENV
+
+docker run --rm -it --name changelogger --mount type=bind,source="$(pwd)"/changelogger,target=/data/apps/changelogger changelogger:latest bundle exec rails c

@@ -1,0 +1,8 @@
+#!/bin/sh
+# Usage: script/reset
+# Removes all containers related to this app
+
+docker stop proxy
+docker rm proxy
+docker stop changelogger
+docker rm changelogger

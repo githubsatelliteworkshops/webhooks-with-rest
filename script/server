@@ -1,0 +1,38 @@
+#!/bin/sh
+# Usage: script/server
+# Starts a server for development purposes inside a docker container.
+
+# Set the RAILS_ENV if not currently set
+: ${RAILS_ENV:=development}
+export RAILS_ENV
+
+APP_CONTAINER=$(docker run --rm -it -d -p 3000 --name changelogger --mount type=bind,source="$(pwd)"/changelogger,target=/data/apps/changelogger changelogger:latest)
+
+if [ ! "$(docker ps -q -f name=proxy)" ]; then
+    if [ "$(docker ps -aq -f status=exited -f name=proxy)" ]; then
+        # cleanup
+        docker rm proxy
+    fi
+    PROXY_CONTAINER=$(docker run -it -d -p 4040 --name proxy --link changelogger:http wernight/ngrok ngrok http http:3000)
+fi
+
+sleep 3
+
+PROXY_HOST=$(docker port proxy 4040)
+TUNNELS_DATA=$(curl -s $PROXY_HOST/api/tunnels)
+PUBLIC_URL=$(echo $TUNNELS_DATA | grep "http:\/\/\w*\.ngrok\.io" -o)
+
+cat script/logo.txt
+echo ""
+
+bold=$(tput bold)
+normal=$(tput sgr0)
+
+echo "+----------------------------------------------+"
+echo "| Your public url is: ${bold}$PUBLIC_URL${normal} |"
+echo "+----------------------------------------------+"
+echo ""
+echo "This is the output of your web app."
+echo "==================================="
+echo ""
+docker attach $APP_CONTAINER
