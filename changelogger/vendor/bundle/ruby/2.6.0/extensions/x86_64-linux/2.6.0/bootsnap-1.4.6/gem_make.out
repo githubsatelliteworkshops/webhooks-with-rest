@@ -1,0 +1,34 @@
+current directory: /data/apps/changelogger/vendor/bundle/ruby/2.6.0/gems/bootsnap-1.4.6/ext/bootsnap
+/usr/local/bin/ruby -I /usr/local/lib/ruby/2.6.0 -r ./siteconf20200429-12-1fmqr26.rb extconf.rb
+creating Makefile
+
+current directory: /data/apps/changelogger/vendor/bundle/ruby/2.6.0/gems/bootsnap-1.4.6/ext/bootsnap
+make "DESTDIR=" clean
+
+current directory: /data/apps/changelogger/vendor/bundle/ruby/2.6.0/gems/bootsnap-1.4.6/ext/bootsnap
+make "DESTDIR="
+compiling bootsnap.c
+bootsnap.c: In function 'bs_cache_path':
+bootsnap.c:272:39: warning: format '%llx' expects argument of type 'long long unsigned int', but argument 5 has type 'uint64_t' {aka 'long unsigned int'} [-Wformat=]
+   sprintf(*cache_path, "%s/%02x/%014llx", cachedir, first_byte, remainder);
+                                 ~~~~~~^                         ~~~~~~~~~
+                                 %014lx
+bootsnap.c: In function 'bs_rb_fetch':
+bootsnap.c:313:3: warning: ISO C90 forbids mixed declarations and code [-Wdeclaration-after-statement]
+   char * cachedir = RSTRING_PTR(cachedir_v);
+   ^~~~
+bootsnap.c:657:13: warning: 'output_data' may be used uninitialized in this function [-Wmaybe-uninitialized]
+     else if (!NIL_P(output_data))             goto succeed; /* fast-path, goal */
+             ^
+bootsnap.c:628:9: note: 'output_data' was declared here
+   VALUE output_data;  /* return data, e.g. ruby hash or loaded iseq */
+         ^~~~~~~~~~~
+bootsnap.c: At top level:
+cc1: warning: unrecognized command line option '-Wno-self-assign'
+cc1: warning: unrecognized command line option '-Wno-parentheses-equality'
+cc1: warning: unrecognized command line option '-Wno-constant-logical-operand'
+linking shared-object bootsnap/bootsnap.so
+
+current directory: /data/apps/changelogger/vendor/bundle/ruby/2.6.0/gems/bootsnap-1.4.6/ext/bootsnap
+make "DESTDIR=" install
+/usr/bin/install -c -m 0755 bootsnap.so ./.gem.20200429-12-2gqot5/bootsnap
