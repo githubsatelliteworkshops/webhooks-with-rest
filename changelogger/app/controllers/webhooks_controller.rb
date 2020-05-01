@@ -40,7 +40,7 @@ class WebhooksController < ApplicationController
   end
 
   def octokit
-    @octokit ||= Octokit::Client.new(access_token: Changelogger::Application.credentials.github_personal_access_token)
+    Octokit::Client.new(access_token: Changelogger::Application.credentials.github_personal_access_token)
   end
 
   def repo
