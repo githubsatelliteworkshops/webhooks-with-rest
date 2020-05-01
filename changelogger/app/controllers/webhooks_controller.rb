@@ -6,7 +6,7 @@ class WebhooksController < ApplicationController
 
   def create
     return unless closed?
-    return unless merged?
+    return unless merged_into_master?
     return unless changelog_enabled?
 
     create_changelog_entry
@@ -29,8 +29,11 @@ class WebhooksController < ApplicationController
     params["webhook"]["action"] == "closed"
   end
 
-  def merged?
-    params["pull_request"]["merged"] == true
+  def merged_into_master?
+    merged = params["pull_request"]["merged"] == true
+    in_to_master = params["pull_request"]["base"]["ref"] == "master"
+
+    merged && in_to_master
   end
 
   def changelog_enabled?
