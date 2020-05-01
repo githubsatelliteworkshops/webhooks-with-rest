@@ -61,3 +61,16 @@ We now reject any payloads that aren't verified to be from GitHub based on the `
 [[diff](https://github.com/githubsatelliteworkshops/webhooks-with-rest/pull/5.diff)][[pull request](https://github.com/githubsatelliteworkshops/webhooks-with-rest/pull/5)]
 * * *
 
+# 2020-05-01 16:58:28 UTC
+
+By: ![avatar](https://avatars1.githubusercontent.com/u/3330181?v=4&s=50) [janester](https://github.com/janester)
+
+## Demo Entry
+
+We added this together!
+
+![we_did_it](https://user-images.githubusercontent.com/3330181/80780711-e9343480-8b3d-11ea-8a54-ab9fe9e70f95.gif)
+
+[[diff](https://github.com/githubsatelliteworkshops/webhooks-with-rest/pull/6.diff)][[pull request](https://github.com/githubsatelliteworkshops/webhooks-with-rest/pull/6)]
+* * *
+
