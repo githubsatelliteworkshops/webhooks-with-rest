@@ -4,6 +4,8 @@ class WebhooksController < ApplicationController
   before_action :verify_event_type!
 
   def create
+    puts "octokit user: #{octokit.user}"
+
     return unless closed?
     return unless merged?
     return unless changelog_enabled?
@@ -34,5 +36,9 @@ class WebhooksController < ApplicationController
     params["pull_request"]["labels"].any? do |label|
       label["name"] == "documentation"
     end
+  end
+
+  def octokit
+    @octokit ||= Octokit::Client.new(access_token: Changelogger::Application.credentials.github_personal_access_token)
   end
 end
