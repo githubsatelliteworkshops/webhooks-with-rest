@@ -49,7 +49,7 @@ class WebhooksController < ApplicationController
 
   def change_description
     body = params["pull_request"]["body"]
-    if matches = body.match(/<changes>(.*)<\/changes>/)
+    if matches = body.match(/<changes>(.*)<\/changes>/m)
       matches.captures.first.strip
     else
       params["pull_request"]["title"]
