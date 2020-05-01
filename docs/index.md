@@ -28,3 +28,14 @@ We now drop any event that we receive that isn't a PR being merged with the `doc
 [[diff](https://github.com/githubsatelliteworkshops/webhooks-with-rest/pull/2.diff)][[pull request](https://github.com/githubsatelliteworkshops/webhooks-with-rest/pull/2)]
 * * *
 
+# 2020-05-01 00:06:15 UTC
+
+By: ![avatar](https://avatars1.githubusercontent.com/u/3330181?v=4&s=50) [janester](https://github.com/janester)
+
+## Step 2: Octokit
+
+Added an octokit client for making REST API calls.
+
+[[diff](https://github.com/githubsatelliteworkshops/webhooks-with-rest/pull/3.diff)][[pull request](https://github.com/githubsatelliteworkshops/webhooks-with-rest/pull/3)]
+* * *
+
