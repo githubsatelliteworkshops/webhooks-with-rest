@@ -90,19 +90,6 @@ By: ![avatar](#{author_avatar}&s=50) [#{author_name}](#{author_url})
     ENTRY
   end
 
-  def default_frontmatter
-    <<-FRONTMATTER
----
-layout: default
-title: Home
-nav_order: 1
-description: "The Changelog"
-permalink: /
----
-
-    FRONTMATTER
-  end
-
   def get_file
     response = octokit.contents(repo, path: "docs/index.md")
     [Base64.decode64(response["content"]), response["sha"]]
