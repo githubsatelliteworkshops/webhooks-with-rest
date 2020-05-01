@@ -30,7 +30,7 @@ class WebhooksController < ApplicationController
   end
 
   def merged?
-    !!params["pull_request"]["merged"]
+    params["pull_request"]["merged"] == true
   end
 
   def changelog_enabled?
