@@ -103,7 +103,7 @@ permalink: /
     FRONTMATTER
   end
 
-  def get_file(repo)
+  def get_file
     response = octokit.contents(repo, path: "docs/index.md")
     [Base64.decode64(response["content"]), response["sha"]]
   rescue
@@ -111,7 +111,7 @@ permalink: /
   end
 
   def create_changelog_entry
-    content, sha = get_file(repo)
+    content, sha = get_file
     return unless content
 
     octokit.update_contents(repo, # repository we're updating
