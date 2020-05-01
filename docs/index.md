@@ -39,3 +39,14 @@ Added an octokit client for making REST API calls.
 [[diff](https://github.com/githubsatelliteworkshops/webhooks-with-rest/pull/3.diff)][[pull request](https://github.com/githubsatelliteworkshops/webhooks-with-rest/pull/3)]
 * * *
 
+# 2020-05-01 02:54:13 UTC
+
+By: ![avatar](https://avatars1.githubusercontent.com/u/3330181?v=4&s=50) [janester](https://github.com/janester)
+
+## Step 3: Create Changelog Entries
+
+Now we can add new entries to a `doc/index.md`. If one doesn't exist already, we create one with default frontmatter and the new entry.
+
+[[diff](https://github.com/githubsatelliteworkshops/webhooks-with-rest/pull/4.diff)][[pull request](https://github.com/githubsatelliteworkshops/webhooks-with-rest/pull/4)]
+* * *
+
