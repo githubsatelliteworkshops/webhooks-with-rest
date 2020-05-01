@@ -50,3 +50,14 @@ Now we can add new entries to a `doc/index.md`. If one doesn't exist already, we
 [[diff](https://github.com/githubsatelliteworkshops/webhooks-with-rest/pull/4.diff)][[pull request](https://github.com/githubsatelliteworkshops/webhooks-with-rest/pull/4)]
 * * *
 
+# 2020-05-01 02:59:01 UTC
+
+By: ![avatar](https://avatars1.githubusercontent.com/u/3330181?v=4&s=50) [janester](https://github.com/janester)
+
+## Step 4: Verify Webhooks
+
+We now reject any payloads that aren't verified to be from GitHub based on the `X-Hub-Signature` header.
+
+[[diff](https://github.com/githubsatelliteworkshops/webhooks-with-rest/pull/5.diff)][[pull request](https://github.com/githubsatelliteworkshops/webhooks-with-rest/pull/5)]
+* * *
+
