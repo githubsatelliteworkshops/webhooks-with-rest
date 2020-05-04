@@ -26,7 +26,8 @@ gem 'octokit'
 
 group :development, :test do
   gem 'pry-rails'
-  gem "lograge"
+  gem 'lograge'
+  gem 'dotenv-rails'
 end
 
 group :development do
