@@ -11,13 +11,17 @@ class WebhooksController < ApplicationController
 
 #     create_changelog_entry
 
-    puts JSON.pretty_generate(params.to_unsafe_h)
+    puts JSON.pretty_generate(payload.to_unsafe_h)
     WEBHOOK_HEADERS.each do |header|
       puts "#{header}: #{request.headers[header]}"
     end
   end
 
-#   private
+  private
+
+  def payload
+    params["webhook"]
+  end
 
 #   def verify_event_type!
 #     type = request.headers["HTTP_X_GITHUB_EVENT"]
@@ -25,58 +29,59 @@ class WebhooksController < ApplicationController
 #     render(status: 422, json: "unallowed event type: #{type}")
 #   end
 
-#   def closed?
-#     params["webhook"]["action"] == "closed"
-#   end
+  # def closed?
+  #   binding.pry # breakpoint that should be removed
+  #   payload["action"] == "closed"
+  # end
 
 #   def merged_into_master?
-#     merged = params["pull_request"]["merged"] == true
-#     in_to_master = params["pull_request"]["base"]["ref"] == "master"
+#     merged = payload["pull_request"]["merged"] == true
+#     in_to_master = payload["pull_request"]["base"]["ref"] == "master"
 
 #     merged && in_to_master
 #   end
 
 #   def changelog_enabled?
-#     params["pull_request"]["labels"].any? do |label|
+#     payload["pull_request"]["labels"].any? do |label|
 #       label["name"] == "documentation"
 #     end
 #   end
 
 #   def octokit
-#     Octokit::Client.new(access_token: Changelogger::Application.credentials.github_personal_access_token)
+#     Octokit::Client.new(access_token: ENV["GITHUB_PERSONAL_ACCESS_TOKEN"])
 #   end
 
 #   def repo
-#     params["repository"]["full_name"]
+#     payload["repository"]["full_name"]
 #   end
 
 #   def change_description
-#     body = params["pull_request"]["body"]
+#     body = payload["pull_request"]["body"]
 #     if matches = body.match(/<changes>(.*)<\/changes>/m)
 #       matches.captures.first.strip
 #     else
-#       params["pull_request"]["title"]
+#       payload["pull_request"]["title"]
 #     end
 #   end
 
 #   def diff_url
-#     params["pull_request"]["diff_url"]
+#     payload["pull_request"]["diff_url"]
 #   end
 
 #   def pr_url
-#     params["pull_request"]["html_url"]
+#     payload["pull_request"]["html_url"]
 #   end
 
 #   def author_name
-#     params["pull_request"]["user"]["login"]
+#     payload["pull_request"]["user"]["login"]
 #   end
 
 #   def author_url
-#     params["pull_request"]["user"]["html_url"]
+#     payload["pull_request"]["user"]["html_url"]
 #   end
 
 #   def author_avatar
-#     params["pull_request"]["user"]["avatar_url"]
+#     payload["pull_request"]["user"]["avatar_url"]
 #   end
 
 #   def format_changes
@@ -112,7 +117,7 @@ class WebhooksController < ApplicationController
 #   end
 
 #   def verify_signature!
-#     secret = Changelogger::Application.credentials.webhook_secret
+#     secret = ENV["GITHUB_WEBHOOK_SECRET"]
 
 #     signature = 'sha1='
 #     signature += OpenSSL::HMAC.hexdigest(OpenSSL::Digest.new('sha1'), secret, request.body.read)

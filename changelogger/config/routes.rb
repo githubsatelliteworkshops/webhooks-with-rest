@@ -1,4 +1,4 @@
 Rails.application.routes.draw do
-  root to: 'home#show'
-  resources :webhooks, only: :create
+  get  '/', to: 'home#show'
+  post '/', to: 'webhooks#create'
 end
