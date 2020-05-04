@@ -47,7 +47,7 @@ class WebhooksController < ApplicationController
 #   end
 
 #   def octokit
-#     Octokit::Client.new(access_token: Changelogger::Application.credentials.github_personal_access_token)
+#     Octokit::Client.new(access_token: ENV["GITHUB_PERSONAL_ACCESS_TOKEN"])
 #   end
 
 #   def repo
@@ -116,7 +116,7 @@ class WebhooksController < ApplicationController
 #   end
 
 #   def verify_signature!
-#     secret = Changelogger::Application.credentials.webhook_secret
+#     secret = ENV["GITHUB_WEBHOOK_SECRET"]
 
 #     signature = 'sha1='
 #     signature += OpenSSL::HMAC.hexdigest(OpenSSL::Digest.new('sha1'), secret, request.body.read)
