@@ -29,9 +29,10 @@ class WebhooksController < ApplicationController
 #     render(status: 422, json: "unallowed event type: #{type}")
 #   end
 
-#   def closed?
-#     payload["action"] == "closed"
-#   end
+  # def closed?
+  #   binding.pry # breakpoint that should be removed
+  #   payload["action"] == "closed"
+  # end
 
 #   def merged_into_master?
 #     merged = payload["pull_request"]["merged"] == true
