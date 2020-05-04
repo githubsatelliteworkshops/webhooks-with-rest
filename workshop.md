@@ -21,7 +21,7 @@ clone your fork to your local machine
 <img src="https://user-images.githubusercontent.com/3330181/80672075-a1e47000-8a79-11ea-82d7-544c323642b2.png" width=500>
 
 ```
-$ git clone git@github.com:<username>/webhooks-with-rest.git
+git clone git@github.com:<username>/webhooks-with-rest.git --config core.autocrlf=input
 ```
 
 
@@ -29,8 +29,16 @@ $ git clone git@github.com:<username>/webhooks-with-rest.git
 
 Now that you have the repo locally `cd` into that directory and run
 
+For Unix:
+
 ```
-$ docker build -t changelogger .
+script/bootstrap
+```
+
+For Windows (in Powershell):
+
+```
+.\exe\bootsrap.ps1
 ```
 
 Be sure you have docker running before attempting that command.
@@ -52,19 +60,11 @@ Let's generate a personal access token (PAT) for this workshop. First head to ht
 
 </details>
 
-Once you've generated it, be sure to copy it because you won't be able to view it again. With it copied to your clipboard, run the following
-
-```
-$ script/add-secret github_personal_access_token=<paste token>
-```
+Once you've generated it, be sure to copy it because you won't be able to view it again. With it copied to your clipboard, open a file called `/changelogger/.env` on your favourite editor and update the value of the environment variable `GITHUB_PERSONAL_ACCESS_TOKEN` to the one that you just copied
 
 ### Webhook secret
 
-When we configure our webhook in a few minutes, we are going to do so with a random secret token. In general, it's best to use a very random string, but for today just pick anything that you can remember for long enough to configure your webhook with. Then run
-
-```
-$ script/add-secret webhook_secret=<secret string>
-```
+When we configure our webhook in a few minutes, we are going to do so with a random secret token. In general, it's best to use a very random string, but for today just pick anything that you can remember for long enough to configure your webhook with. Then follow exactly what we did for the personal access token but this time update the value of the environment variable `GITHUB_WEBHOOK_SECRET` to the one that you just copied
 
 ## Enable GitHub Pages
 
@@ -88,8 +88,16 @@ Once selected, it should say that the site is ready to be published and the URL 
 
 Now that we have all of the credentials necessary, we can run
 
+For Unix:
+
 ```
-$ script/server
+script/server
+```
+
+For Windows (in Powershell):
+
+```
+.\exe\server.ps1
 ```
 
 This will start the app server as well as a proxy to tunnel requests to your local server. There should be an output that includes a URL.
@@ -476,7 +484,7 @@ The next step is to filter the events that we recieve to only act upon the ones 
 We'll work on adding this code together, but if you fall behind, feel free to check out the `filter-events` branch, which has this step complete already.
 
 ```
-$ git checkout filter-events
+git checkout filter-events
 ```
 
 Diff: https://github.com/githubsatelliteworkshops/webhooks-with-rest/compare/master...filter-events
@@ -488,7 +496,7 @@ Now that we know we are only acting on the events we care about, we need to _do 
 We'll work on adding and testing this client together, but if you fall behind, feel free to check out the `octokit` branch, which has this step complete already.
 
 ```
-$ git checkout octokit
+git checkout octokit
 ```
 
 Diff: https://github.com/githubsatelliteworkshops/webhooks-with-rest/compare/filter-events...octokit
@@ -500,7 +508,7 @@ Since we can make API calls now, let's add the logic of adding the changelog ent
 This is our biggest step, so if you fall behind, feel free to check out the `add-changelog-entries` branch, which has this step complete already.
 
 ```
-$ git checkout add-changelog-entries
+git checkout add-changelog-entries
 ```
 
 Diff: https://github.com/githubsatelliteworkshops/webhooks-with-rest/compare/octokit...add-changelog-entries
@@ -512,7 +520,7 @@ The project is technically feature complete at this point, but we want to go ove
 This is our most technically complext step, so if you fall behind, feel free to check out the `verify-webhooks` branch, which has this step complete already.
 
 ```
-$ git checkout verify-webhooks
+git checkout verify-webhooks
 ```
 
 Diff: https://github.com/githubsatelliteworkshops/webhooks-with-rest/compare/add-changelog-entries...verify-webhooks

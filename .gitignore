@@ -11,6 +11,7 @@
 changelogger/db/*.sqlite3
 changelogger/db/*.sqlite3-journal
 changelogger/db/*.sqlite3-*
+/changelogger/.env
 
 # Ignore all logfiles and tempfiles.
 /changelogger/log/*

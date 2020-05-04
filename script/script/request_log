@@ -1,0 +1,6 @@
+#!/bin/sh
+# Usage: script/request_log
+# Opens ngrok localhost inspection url
+
+PROXY_HOST=$(docker port proxy 4040)
+open http://$PROXY_HOST/inspect/http
