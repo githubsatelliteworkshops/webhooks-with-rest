@@ -6,4 +6,4 @@
 : ${RAILS_ENV:=development}
 export RAILS_ENV
 
-docker run --rm -it --name changelogger --mount type=bind,source="$(pwd)"/changelogger,target=/data/apps/changelogger changelogger:latest bundle exec rails c
+DISABLE_SPRING=true docker run --rm -it -e DISABLE_SPRING --name changelogger --mount type=bind,source="$(pwd)"/changelogger,target=/data/apps/changelogger changelogger:latest bundle exec rails c

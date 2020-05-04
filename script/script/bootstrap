@@ -1,7 +1,0 @@
-#!/bin/sh
-
-echo "Copying .env.example to .env..."
-cp ./changelogger/.env.example ./changelogger/.env
-
-echo "Building docker image..."
-docker build -t changelogger .

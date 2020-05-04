@@ -6,7 +6,7 @@
 : ${RAILS_ENV:=development}
 export RAILS_ENV
 
-APP_CONTAINER=$(docker run --rm -it -d -p 3000 --name changelogger --mount type=bind,source="$(pwd)"/changelogger,target=/data/apps/changelogger changelogger:latest)
+APP_CONTAINER=$(DISABLE_SPRING=true docker run --rm -it -d -p 3000 -e DISABLE_SPRING --name changelogger --mount type=bind,source="$(pwd)"/changelogger,target=/data/apps/changelogger changelogger:latest)
 
 if [ ! "$(docker ps -q -f name=proxy)" ]; then
     if [ "$(docker ps -aq -f status=exited -f name=proxy)" ]; then
