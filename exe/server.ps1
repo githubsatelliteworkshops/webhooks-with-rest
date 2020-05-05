@@ -2,7 +2,7 @@
 
 $APP_CONTAINER = docker run --rm -it -d -p 3000 --name changelogger --mount type=bind,source="$(pwd)"/changelogger,target=/data/apps/changelogger changelogger:latest
 
-$proxy_running = docker ps --q -f name=proxy
+$proxy_running = docker ps -q -f name=proxy
 if(!$proxy_running)
 {
   docker run -it -d -p 4040 --name proxy --link changelogger:http wernight/ngrok ngrok http http:3000
@@ -19,9 +19,9 @@ Get-Content -Path .\logo.txt -Encoding utf8
 
 echo ""
 
-echo "+---------------------------------------+"
+echo "+-----------------------------------------------+"
 Write-Host "| Your public url is: $public_url |" -ForegroundColor Green
-echo "+---------------------------------------+"
+echo "+-----------------------------------------------+"
 echo ""
 echo "This is the output of your web app."
 echo "==================================="
