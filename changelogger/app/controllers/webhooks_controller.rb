@@ -1,5 +1,5 @@
 class WebhooksController < ApplicationController
-  WEBHOOK_HEADERS = %w(HTTP_USER_AGENT CONTENT_TYPE HTTP_X_GITHUB_EVENT HTTP_X_GITHUB_DELIVERY HTTP_X_HUB_SIGNATURE)
+  WEBHOOK_HEADERS = ["HTTP_USER_AGENT", "CONTENT_TYPE", "HTTP_X_GITHUB_EVENT", "HTTP_X_GITHUB_DELIVERY", "HTTP_X_HUB_SIGNATURE"]
 
 #   before_action :verify_signature!
 #   before_action :verify_event_type!
@@ -29,10 +29,10 @@ class WebhooksController < ApplicationController
 #     render(status: 422, json: "unallowed event type: #{type}")
 #   end
 
-  # def closed?
-  #   binding.pry # breakpoint that should be removed
-  #   payload["action"] == "closed"
-  # end
+#   def closed?
+#     binding.pry # breakpoint that should be removed
+#     payload["action"] == "closed"
+#   end
 
 #   def merged_into_master?
 #     merged = payload["pull_request"]["merged"] == true
@@ -51,40 +51,36 @@ class WebhooksController < ApplicationController
 #     Octokit::Client.new(access_token: ENV["GITHUB_PERSONAL_ACCESS_TOKEN"])
 #   end
 
+#   def create_changelog_entry
+#     content, sha = get_file
+#     return unless content
+
+#     octokit.update_contents(repo, # repository we're updating
+#                             "docs/index.md", # file we're updating
+#                             "New changelog entry", # commit message for update
+#                             sha, # head sha for the file we're updating
+#                             content + format_changes) # actual contents
+#   end
+
+#   def get_file
+#     response = octokit.contents(repo, path: "docs/index.md")
+#     [Base64.decode64(response["content"]), response["sha"]]
+#   rescue
+#     nil
+#   end
+
 #   def repo
 #     payload["repository"]["full_name"]
 #   end
 
-#   def change_description
-#     body = payload["pull_request"]["body"]
-#     if matches = body.match(/<changes>(.*)<\/changes>/m)
-#       matches.captures.first.strip
-#     else
-#       payload["pull_request"]["title"]
-#     end
-#   end
-
-#   def diff_url
-#     payload["pull_request"]["diff_url"]
-#   end
-
-#   def pr_url
-#     payload["pull_request"]["html_url"]
-#   end
-
-#   def author_name
-#     payload["pull_request"]["user"]["login"]
-#   end
-
-#   def author_url
-#     payload["pull_request"]["user"]["html_url"]
-#   end
-
-#   def author_avatar
-#     payload["pull_request"]["user"]["avatar_url"]
-#   end
-
 #   def format_changes
+#     author_avatar = payload["pull_request"]["user"]["avatar_url"]
+#     author_name   = payload["pull_request"]["user"]["login"]
+#     author_url    = payload["pull_request"]["user"]["html_url"]
+
+#     diff_url = payload["pull_request"]["diff_url"]
+#     pr_url = payload["pull_request"]["html_url"]
+
 #     <<-ENTRY
 # # #{Time.now.utc.to_s}
 
@@ -98,22 +94,13 @@ class WebhooksController < ApplicationController
 #     ENTRY
 #   end
 
-#   def get_file
-#     response = octokit.contents(repo, path: "docs/index.md")
-#     [Base64.decode64(response["content"]), response["sha"]]
-#   rescue
-#     nil
-#   end
-
-#   def create_changelog_entry
-#     content, sha = get_file
-#     return unless content
-
-#     octokit.update_contents(repo, # repository we're updating
-#                             "docs/index.md", # file we're updating
-#                             "New changelog entry", # commit message for update
-#                             sha, # head sha for the file we're updating
-#                             content + format_changes) # actual contents
+#   def change_description
+#     body = payload["pull_request"]["body"]
+#     if matches = body.match(/<changes>(.*)<\/changes>/m)
+#       matches.captures.first.strip
+#     else
+#       payload["pull_request"]["title"]
+#     end
 #   end
 
 #   def verify_signature!
