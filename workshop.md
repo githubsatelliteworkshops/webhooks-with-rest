@@ -332,9 +332,9 @@ Congrats! You just recieved your first webhook! 🎉
 
 The next step is to filter the events that we recieve to only act upon the ones that we care about. Use the payload's fields to determine which ones we want. For this project we care only about the pull requests that:
 
-- have the special changelog label
 - the action is closed
 - the PR's state is merged and not just closed
+- have the special changelog label
 
 We'll work on adding this code together, but if you fall behind, feel free to check out the `filter-events` branch, which has this step complete already.
 
