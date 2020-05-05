@@ -38,7 +38,7 @@ script/bootstrap
 For Windows (in Powershell):
 
 ```
-.\exe\bootsrap.ps1
+.\exe\bootstrap.ps1
 ```
 
 Be sure you have docker running before attempting that command.
