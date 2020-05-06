@@ -58,7 +58,7 @@ Let's generate a personal access token (PAT) for this workshop. First head to ht
 
 </details>
 
-Once you've generated it, be sure to copy it because you won't be able to view it again. 
+Once you've generated it, be sure to copy it because you won't be able to view it again.
 
 With it copied to your clipboard, open a file called `/changelogger/.env` on your favorite editor and update the value of the environment variable `GITHUB_PERSONAL_ACCESS_TOKEN` to the one that you just copied.
 

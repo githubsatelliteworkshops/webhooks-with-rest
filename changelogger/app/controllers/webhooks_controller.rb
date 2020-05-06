@@ -1,17 +1,17 @@
 class WebhooksController < ApplicationController
   WEBHOOK_HEADERS = ["HTTP_USER_AGENT", "CONTENT_TYPE", "HTTP_X_GITHUB_EVENT", "HTTP_X_GITHUB_DELIVERY", "HTTP_X_HUB_SIGNATURE"]
 
-#   before_action :verify_signature!
-#   before_action :verify_event_type!
+#  before_action :verify_signature!
+#  before_action :verify_event_type!
 
   def create
-#     return unless closed?
-#     return unless merged_into_master?
-#     return unless changelog_enabled?
+#    return error(:closed) unless closed?
+#    return error(:merged) unless merged_into_master?
+#    return error(:changelog_enabled) unless changelog_enabled?
 
-#     create_changelog_entry
+#    create_changelog_entry
 
-    puts JSON.pretty_generate(payload.to_unsafe_h)
+    puts "Webhook successfully received!!!"
     WEBHOOK_HEADERS.each do |header|
       puts "#{header}: #{request.headers[header]}"
     end
@@ -23,95 +23,99 @@ class WebhooksController < ApplicationController
     params["webhook"]
   end
 
-#   def verify_event_type!
-#     type = request.headers["HTTP_X_GITHUB_EVENT"]
-#     return if type == "pull_request"
-#     render(status: 422, json: "unallowed event type: #{type}")
-#   end
+  def error(msg)
+    text = "Webhook failed: not_#{msg}"
+    puts text
+    render(status: 422, json: text)
+  end
 
-#   def closed?
-#     binding.pry # breakpoint that should be removed
-#     payload["action"] == "closed"
-#   end
+#  def verify_event_type!
+#    type = request.headers["HTTP_X_GITHUB_EVENT"]
+#    return if type == "pull_request"
+#    render(status: 422, json: "unallowed event type: #{type}")
+#  end
 
-#   def merged_into_master?
-#     merged = payload["pull_request"]["merged"] == true
-#     in_to_master = payload["pull_request"]["base"]["ref"] == "master"
+#  def closed?
+#    payload["action"] == "closed"
+#  end
 
-#     merged && in_to_master
-#   end
+#  def merged_into_master?
+#    merged = payload["pull_request"]["merged"] == true
+#    in_to_master = payload["pull_request"]["base"]["ref"] == "master"
 
-#   def changelog_enabled?
-#     payload["pull_request"]["labels"].any? do |label|
-#       label["name"] == "documentation"
-#     end
-#   end
+#    merged && in_to_master
+#  end
 
-#   def octokit
-#     Octokit::Client.new(access_token: ENV["GITHUB_PERSONAL_ACCESS_TOKEN"])
-#   end
+#  def changelog_enabled?
+#    payload["pull_request"]["labels"].any? do |label|
+#      label["name"] == "documentation"
+#    end
+#  end
 
-#   def create_changelog_entry
-#     content, sha = get_file
-#     return unless content
+#  def octokit
+#    Octokit::Client.new(access_token: ENV["GITHUB_PERSONAL_ACCESS_TOKEN"])
+#  end
 
-#     octokit.update_contents(repo, # repository we're updating
-#                             "docs/index.md", # file we're updating
-#                             "New changelog entry", # commit message for update
-#                             sha, # head sha for the file we're updating
-#                             content + format_changes) # actual contents
-#   end
+#  def create_changelog_entry
+#    content, sha = get_file
+#    return unless content
 
-#   def get_file
-#     response = octokit.contents(repo, path: "docs/index.md")
-#     [Base64.decode64(response["content"]), response["sha"]]
-#   rescue
-#     nil
-#   end
+#    octokit.update_contents(repo, # repository we're updating
+#                            "docs/index.md", # file we're updating
+#                            "New changelog entry", # commit message for update
+#                            sha, # head sha for the file we're updating
+#                            content + format_changes) # actual contents
+#  end
 
-#   def repo
-#     payload["repository"]["full_name"]
-#   end
+#  def get_file
+#    response = octokit.contents(repo, path: "docs/index.md")
+#    [Base64.decode64(response["content"]), response["sha"]]
+#  rescue
+#    nil
+#  end
 
-#   def format_changes
-#     author_avatar = payload["pull_request"]["user"]["avatar_url"]
-#     author_name   = payload["pull_request"]["user"]["login"]
-#     author_url    = payload["pull_request"]["user"]["html_url"]
+#  def repo
+#    payload["repository"]["full_name"]
+#  end
 
-#     diff_url = payload["pull_request"]["diff_url"]
-#     pr_url = payload["pull_request"]["html_url"]
+#  def format_changes
+#    author_avatar = payload["pull_request"]["user"]["avatar_url"]
+#    author_name   = payload["pull_request"]["user"]["login"]
+#    author_url    = payload["pull_request"]["user"]["html_url"]
 
-#     <<-ENTRY
-# # #{Time.now.utc.to_s}
+#    diff_url = payload["pull_request"]["diff_url"]
+#    pr_url = payload["pull_request"]["html_url"]
 
-# By: ![avatar](#{author_avatar}&s=50) [#{author_name}](#{author_url})
+#    <<-ENTRY
+## #{Time.now.utc.to_s}
 
-# #{change_description}
+#By: ![avatar](#{author_avatar}&s=50) [#{author_name}](#{author_url})
 
-# [[diff](#{diff_url})][[pull request](#{pr_url})]
-# * * *
+##{change_description}
 
-#     ENTRY
-#   end
+#[[diff](#{diff_url})][[pull request](#{pr_url})]
+#* * *
+#    ENTRY
+#  end
 
-#   def change_description
-#     body = payload["pull_request"]["body"]
-#     if matches = body.match(/<changes>(.*)<\/changes>/m)
-#       matches.captures.first.strip
-#     else
-#       payload["pull_request"]["title"]
-#     end
-#   end
+#  def change_description
+#    body = payload["pull_request"]["body"]
+#    if matches = body.match(/<changes>(.*)<\/changes>/m)
+#      matches.captures.first.strip
+#    else
+#      payload["pull_request"]["title"]
+#    end
+#  end
 
-#   def verify_signature!
-#     secret = ENV["GITHUB_WEBHOOK_SECRET"]
+#  def verify_signature!
+#    secret = ENV["GITHUB_WEBHOOK_SECRET"]
 
-#     signature = 'sha1='
-#     signature += OpenSSL::HMAC.hexdigest(OpenSSL::Digest.new('sha1'), secret, request.body.read)
+#    signature = 'sha1='
+#    signature += OpenSSL::HMAC.hexdigest(OpenSSL::Digest.new('sha1'), secret, request.body.read)
 
-#     unless Rack::Utils.secure_compare(signature, request.env['HTTP_X_HUB_SIGNATURE'])
-#       guid = request.headers["HTTP_X_GITHUB_DELIVERY"]
-#       render(status: 422, json: "unable to verify payload for #{guid}")
-#     end
-#   end
+#    unless Rack::Utils.secure_compare(signature, request.env['HTTP_X_HUB_SIGNATURE'])
+#      guid = request.headers["HTTP_X_GITHUB_DELIVERY"]
+#      render(status: 422, json: "unable to verify payload for #{guid}")
+#    end
+#  end
 end
