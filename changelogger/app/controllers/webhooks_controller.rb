@@ -5,9 +5,9 @@ class WebhooksController < ApplicationController
 #  before_action :verify_event_type!
 
   def create
+#    return error(:labeled) unless labeled?
 #    return error(:closed) unless closed?
 #    return error(:merged) unless merged_into_master?
-#    return error(:changelog_enabled) unless changelog_enabled?
 
 #    create_changelog_entry
 
@@ -35,6 +35,12 @@ class WebhooksController < ApplicationController
 #    render(status: 422, json: "unallowed event type: #{type}")
 #  end
 
+#  def labeled?
+#    payload["pull_request"]["labels"].any? do |label|
+#      label["name"] == "documentation"
+#    end
+#  end
+
 #  def closed?
 #    payload["action"] == "closed"
 #  end
@@ -44,12 +50,6 @@ class WebhooksController < ApplicationController
 #    in_to_master = payload["pull_request"]["base"]["ref"] == "master"
 
 #    merged && in_to_master
-#  end
-
-#  def changelog_enabled?
-#    payload["pull_request"]["labels"].any? do |label|
-#      label["name"] == "documentation"
-#    end
 #  end
 
 #  def octokit
