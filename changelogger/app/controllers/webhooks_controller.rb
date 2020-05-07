@@ -5,9 +5,9 @@ class WebhooksController < ApplicationController
 #  before_action :verify_event_type!
 
   def create
-#    return error(:labeled) unless labeled?
-#    return error(:closed) unless closed?
-#    return error(:merged) unless merged_into_master?
+#    return error("not labeled") unless labeled?
+#    return error("not closed") unless closed?
+#    return error("not merged") unless merged_into_master?
 
 #    create_changelog_entry
 
@@ -24,7 +24,7 @@ class WebhooksController < ApplicationController
   end
 
   def error(msg)
-    text = "Webhook failed: not_#{msg}"
+    text = "Webhook invalid: #{msg}"
     puts text
     render(status: 422, json: text)
   end
@@ -32,7 +32,7 @@ class WebhooksController < ApplicationController
 #  def verify_event_type!
 #    type = request.headers["HTTP_X_GITHUB_EVENT"]
 #    return if type == "pull_request"
-#    render(status: 422, json: "unallowed event type: #{type}")
+#    error("unallowed event type: #{type}")
 #  end
 
 #  def labeled?
@@ -115,7 +115,7 @@ class WebhooksController < ApplicationController
 
 #    unless Rack::Utils.secure_compare(signature, request.env['HTTP_X_HUB_SIGNATURE'])
 #      guid = request.headers["HTTP_X_GITHUB_DELIVERY"]
-#      render(status: 422, json: "unable to verify payload for #{guid}")
+#      error("unable to verify payload for #{guid}")
 #    end
 #  end
 end
