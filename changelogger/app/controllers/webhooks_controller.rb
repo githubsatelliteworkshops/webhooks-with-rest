@@ -9,7 +9,7 @@ class WebhooksController < ApplicationController
     return error("not closed") unless closed?
     return error("not merged") unless merged_into_master?
 
-#    create_changelog_entry
+    create_changelog_entry
 
     puts "Webhook successfully received!!!"
     WEBHOOK_HEADERS.each do |header|
@@ -56,56 +56,56 @@ class WebhooksController < ApplicationController
     Octokit::Client.new(access_token: ENV["GITHUB_PERSONAL_ACCESS_TOKEN"])
   end
 
-#  def create_changelog_entry
-#    content, sha = get_file
-#    return unless content
+  def create_changelog_entry
+    content, sha = get_file
+    return unless content
 
-#    octokit.update_contents(repo, # repository we're updating
-#                            "docs/index.md", # file we're updating
-#                            "New changelog entry", # commit message for update
-#                            sha, # head sha for the file we're updating
-#                            content + format_changes) # actual contents
-#  end
+    octokit.update_contents(repo, # repository we're updating
+                            "docs/index.md", # file we're updating
+                            "New changelog entry", # commit message for update
+                            sha, # head sha for the file we're updating
+                            content + format_changes) # actual contents
+  end
 
-#  def get_file
-#    response = octokit.contents(repo, path: "docs/index.md")
-#    [Base64.decode64(response["content"]), response["sha"]]
-#  rescue
-#    nil
-#  end
+  def get_file
+    response = octokit.contents(repo, path: "docs/index.md")
+    [Base64.decode64(response["content"]), response["sha"]]
+  rescue
+    nil
+  end
 
-#  def repo
-#    payload["repository"]["full_name"]
-#  end
+  def repo
+    payload["repository"]["full_name"]
+  end
 
-#  def format_changes
-#    author_avatar = payload["pull_request"]["user"]["avatar_url"]
-#    author_name   = payload["pull_request"]["user"]["login"]
-#    author_url    = payload["pull_request"]["user"]["html_url"]
+  def format_changes
+    author_avatar = payload["pull_request"]["user"]["avatar_url"]
+    author_name   = payload["pull_request"]["user"]["login"]
+    author_url    = payload["pull_request"]["user"]["html_url"]
 
-#    diff_url = payload["pull_request"]["diff_url"]
-#    pr_url = payload["pull_request"]["html_url"]
+    diff_url = payload["pull_request"]["diff_url"]
+    pr_url = payload["pull_request"]["html_url"]
 
-#    <<-ENTRY
-## #{Time.now.utc.to_s}
+    <<-ENTRY
+# #{Time.now.utc.to_s}
 
-#By: ![avatar](#{author_avatar}&s=50) [#{author_name}](#{author_url})
+By: ![avatar](#{author_avatar}&s=50) [#{author_name}](#{author_url})
 
-##{change_description}
+#{change_description}
 
-#[[diff](#{diff_url})][[pull request](#{pr_url})]
-#* * *
-#    ENTRY
-#  end
+[[diff](#{diff_url})][[pull request](#{pr_url})]
+* * *
+    ENTRY
+  end
 
-#  def change_description
-#    body = payload["pull_request"]["body"]
-#    if matches = body.match(/<changes>(.*)<\/changes>/m)
-#      matches.captures.first.strip
-#    else
-#      payload["pull_request"]["title"]
-#    end
-#  end
+  def change_description
+    body = payload["pull_request"]["body"]
+    if matches = body.match(/<changes>(.*)<\/changes>/m)
+      matches.captures.first.strip
+    else
+      payload["pull_request"]["title"]
+    end
+  end
 
 #  def verify_signature!
 #    secret = ENV["GITHUB_WEBHOOK_SECRET"]
