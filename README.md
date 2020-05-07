@@ -22,6 +22,7 @@ Webhooks are valuable tools for powering real-time integrations and workflows in
 - [Ruby-lang](https://www.ruby-lang.org/en/)
 - [Git Cheat Sheet](https://education.github.com/git-cheat-sheet-education.pdf)
 - [Docker installation](https://www.docker.com/products/docker-desktop)
+- [Today's Slides](https://speakerdeck.com/bswinnerton/building-github-integrations-with-webhooks-and-rest)
 
 ## :woman_technologist: Workshop
 
