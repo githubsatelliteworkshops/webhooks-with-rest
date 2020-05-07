@@ -1,4 +1,4 @@
-# Webhooks + REST FAQ
+# Webhooks + REST FAQ - test
 
 ## Where can I find the presentation slides?
 
@@ -52,6 +52,6 @@ Create a new personal access token [here](https://github.com/settings/tokens/new
 
 More detailed instructions can be found in our [help docs](https://help.github.com/en/github/authenticating-to-github/creating-a-personal-access-token-for-the-command-line).
 
-## I'm getting 404 when I navigate to GitHub Pages?
+## I'm getting 404 when I navigate to GitHub Pages. What do I do?
 
-It takes Pages a few minutes to build before it can display the content.
+Sorry, you'll have to wait for a little bit. It takes Pages a few minutes to build before it can display the content.
