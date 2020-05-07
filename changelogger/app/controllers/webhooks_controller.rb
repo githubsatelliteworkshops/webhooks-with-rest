@@ -1,7 +1,7 @@
 class WebhooksController < ApplicationController
   WEBHOOK_HEADERS = ["HTTP_USER_AGENT", "CONTENT_TYPE", "HTTP_X_GITHUB_EVENT", "HTTP_X_GITHUB_DELIVERY", "HTTP_X_HUB_SIGNATURE"]
 
-#  before_action :verify_signature!
+  before_action :verify_signature!
   before_action :verify_event_type!
 
   def create
@@ -107,15 +107,15 @@ By: ![avatar](#{author_avatar}&s=50) [#{author_name}](#{author_url})
     end
   end
 
-#  def verify_signature!
-#    secret = ENV["GITHUB_WEBHOOK_SECRET"]
+  def verify_signature!
+    secret = ENV["GITHUB_WEBHOOK_SECRET"]
 
-#    signature = 'sha1='
-#    signature += OpenSSL::HMAC.hexdigest(OpenSSL::Digest.new('sha1'), secret, request.body.read)
+    signature = 'sha1='
+    signature += OpenSSL::HMAC.hexdigest(OpenSSL::Digest.new('sha1'), secret, request.body.read)
 
-#    unless Rack::Utils.secure_compare(signature, request.env['HTTP_X_HUB_SIGNATURE'])
-#      guid = request.headers["HTTP_X_GITHUB_DELIVERY"]
-#      error("unable to verify payload for #{guid}")
-#    end
-#  end
+    unless Rack::Utils.secure_compare(signature, request.env['HTTP_X_HUB_SIGNATURE'])
+      guid = request.headers["HTTP_X_GITHUB_DELIVERY"]
+      error("unable to verify payload for #{guid}")
+    end
+  end
 end
