@@ -47,7 +47,7 @@ Be sure you have docker running before attempting that command.
 
 Now that you have the docker image created, we need to setup some credentials.
 
-### Personal acess token
+### Personal access token
 
 Let's generate a personal access token (PAT) for this workshop. First head to https://github.com/settings/tokens/new. Once there, name your token and select the `repo` scope.
 
