@@ -13,14 +13,14 @@ if [ ! "$(docker ps -q -f name=proxy)" ]; then
         # cleanup
         docker rm proxy
     fi
-    PROXY_CONTAINER=$(docker run -it -d -p 4040 --name proxy --link changelogger:http wernight/ngrok ngrok http http:3000)
+    PROXY_CONTAINER=$(docker run -it -d -p 4040 --name proxy --link changelogger:http ngrok/ngrok http http:3000)
 fi
 
 sleep 3
 
 PROXY_HOST=$(docker port proxy 4040)
 TUNNELS_DATA=$(curl -s $PROXY_HOST/api/tunnels)
-PUBLIC_URL=$(echo $TUNNELS_DATA | grep "http:\/\/\w*\.ngrok\.io" -o)
+PUBLIC_URL=$(echo $TUNNELS_DATA | grep "https:\/\/.*\.ngrok\.io" -o)
 
 cat logo.txt
 echo ""
